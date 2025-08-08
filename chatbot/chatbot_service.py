@@ -2,9 +2,13 @@ import requests
 from .data_fetch import fetch_documents
 import json
 from datetime import datetime
+from dotenv import load_dotenv
+import os
 
 # Load environment variables from .env file
 load_dotenv()
+
+
 
 def query_mistral_api(user_query, documents=None):
     api_url = "https://api.mistral.ai/v1/chat/completions"
