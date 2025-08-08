@@ -1,6 +1,3 @@
-Creating a `README.md` file is a great way to provide users and developers with essential information about your project. Below is a basic template for a `README.md` file based on the structure and details you've provided. You can customize it further to include more specific details or instructions as needed.
-
-```markdown
 # Document Status Bot
 
 A Flask-based application designed to manage and query documents stored in a PostgreSQL database. The application also includes a chatbot service to process user queries related to the documents.
