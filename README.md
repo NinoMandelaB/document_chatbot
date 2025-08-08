@@ -88,10 +88,4 @@ Contributions are welcome! Please fork the repository and create a pull request 
 ## License
 
 This project is licensed under the MIT License.
-```
 
-### Additional Tips
-
-- **Customization**: Feel free to add more sections or details specific to your project, such as configuration instructions, example requests, or additional setup steps.
-- **Images**: If you have any diagrams or screenshots that could help users understand the project better, consider adding them to the `README.md`.
-- **Badges**: You can also add badges for build status, coverage, etc., if you are using any CI/CD tools.
