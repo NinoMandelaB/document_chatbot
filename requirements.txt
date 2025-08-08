@@ -1,0 +1,9 @@
+psycopg2-binary
+psycopg2
+flask
+requests
+json
+datetime
+sys
+gunicorn
+
