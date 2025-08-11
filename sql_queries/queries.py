@@ -1,11 +1,15 @@
 def get_documents_query(connection):
-    # This function is safe as it doesn't use any parameters.
     query = "SELECT * FROM qualification_documents;"
     cursor = connection.cursor()
     cursor.execute(query)
+    # Fetch column names from cursor description
+    column_names = [desc[0] for desc in cursor.description]
+    # Fetch all rows from the executed query
     results = cursor.fetchall()
     cursor.close()
-    return results
+    # Return column names and results
+    return column_names, results
+
 
 def insert_document_query(connection, document_data):
     # Define the SQL query using placeholders

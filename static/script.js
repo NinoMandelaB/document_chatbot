@@ -1,32 +1,49 @@
 function fetchDocuments() {
     fetch('/documents')
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
         .then(data => {
             const documentsList = document.getElementById('documentsList');
             documentsList.innerHTML = '';
 
-            if (data && data.length > 0) {
+            if (data && data.column_names && data.results && data.results.length > 0) {
                 // Create a table element
-                let table = '<table><thead><tr>';
+                let table = document.createElement('table');
 
-                // Create table headers
-                const headers = Object.keys(data[0]);
-                headers.forEach(header => {
-                    table += `<th>${header}</th>`;
+                // Create table header
+                let thead = document.createElement('thead');
+                let headerRow = document.createElement('tr');
+
+                // Create table headers using column names
+                data.column_names.forEach(header => {
+                    let th = document.createElement('th');
+                    th.textContent = header;
+                    headerRow.appendChild(th);
                 });
-                table += '</tr></thead><tbody>';
+
+                thead.appendChild(headerRow);
+                table.appendChild(thead);
+
+                // Create table body
+                let tbody = document.createElement('tbody');
 
                 // Create table rows
-                data.forEach(doc => {
-                    table += '<tr>';
-                    headers.forEach(header => {
-                        table += `<td>${doc[header] || ''}</td>`;
+                data.results.forEach(row => {
+                    let tr = document.createElement('tr');
+                    row.forEach(cell => {
+                        let td = document.createElement('td');
+                        td.textContent = cell || '';
+                        tr.appendChild(td);
                     });
-                    table += '</tr>';
+                    tbody.appendChild(tr);
                 });
 
-                table += '</tbody></table>';
-                documentsList.innerHTML = table;
+                table.appendChild(tbody);
+                documentsList.appendChild(table);
             } else {
                 documentsList.innerHTML = '<p>No documents found.</p>';
             }
@@ -36,6 +53,10 @@ function fetchDocuments() {
             documentsList.innerHTML = '<p>Error fetching documents. Please try again.</p>';
         });
 }
+
+// Call fetchDocuments when the page loads
+window.onload = fetchDocuments;
+
 
 
 document.getElementById('chatForm').addEventListener('submit', function(event) {

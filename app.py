@@ -9,9 +9,9 @@ app = Flask(__name__)
 def get_documents():
     connection = create_connection()
     if connection:
-        documents = get_documents_query(connection)
+        column_names, documents = get_documents_query(connection)
         connection.close()
-        return jsonify(documents)
+        return jsonify({'column_names': column_names, 'results': documents})
     else:
         return jsonify({"error": "Failed to connect to the database"}), 500
 
